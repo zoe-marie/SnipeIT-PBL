@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { Redirect, useRouter, useFocusEffect } from "expo-router";
 
 export default function Camera() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [data, setData] = useState(null);
+
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -17,7 +20,8 @@ export default function Camera() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    setData(data);
+
   };
 
   if (hasPermission === null) {
@@ -34,8 +38,22 @@ export default function Camera() {
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <>
+        
+          {data && (
+            <Redirect href={`/views/${data}`} />
+
+          )}
+        </>
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
