@@ -1,5 +1,7 @@
-import { Link, Stack } from "expo-router";
-import { Image, Text, View } from "react-native";
+import { Link, Stack, useRouter } from "expo-router";
+import { Image, Text, View, Button } from "react-native";
+import Home from './views/home'
+
 
 function LogoTitle() {
   return (
@@ -10,29 +12,7 @@ function LogoTitle() {
   );
 }
 
-export default function Home() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Stack.Screen
-        options={{
-          // https://reactnavigation.org/docs/headers#setting-the-header-title
-          title: "My home",
-          // https://reactnavigation.org/docs/headers#adjusting-header-styles
-          headerStyle: { backgroundColor: "#f4511e" },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          // https://reactnavigation.org/docs/headers#replacing-the-title-with-a-custom-component
-          headerTitle: (props) => <LogoTitle {...props} />,
-        }}
-      />
-
-      <Text>Home Screen</Text>
-
-      <Link href={{ pathname: "views/camera", params: { name: "Bacon" } }}>
-        Go to Details
-      </Link>
-    </View>
-  );
+export default function Index() {
+  const router = useRouter();
+  return Home()
 }
