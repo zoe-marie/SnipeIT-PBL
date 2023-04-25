@@ -1,6 +1,7 @@
 import { Text, View, Button, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { useRouter, useSearchParams } from 'expo-router'
+import { getAsset, getLocation, setLight } from "../api/snipeit";
 
 const Asset = () => {
   const router = useRouter();

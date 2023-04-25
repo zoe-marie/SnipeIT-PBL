@@ -1,6 +1,6 @@
 import { View, Text, TextInput, Button } from 'react-native'
 import React, {useEffect, useState} from 'react'
-import { saveSecureStore, getSecureStore } from '../../api/api'
+import { saveSecureStore, getSecureStore } from '../../api/snipeit'
 
 const snipeSettings = () => {
     const [snipeItUrl, setSnipeItApiUrl] = useState(null)
