@@ -1,7 +1,6 @@
 import { Link, Stack, useRouter } from "expo-router";
 import { Image, Text, View, Button } from "react-native";
-import Home from './views/home'
-
+import Home from "./views/home";
 
 function LogoTitle() {
   return (
@@ -14,5 +13,5 @@ function LogoTitle() {
 
 export default function Index() {
   const router = useRouter();
-  return Home()
+  return Home();
 }

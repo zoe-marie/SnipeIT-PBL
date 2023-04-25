@@ -23,6 +23,8 @@ async function getConfig(key) {
   }
 }
 
+async function setConfig()
+
 /* async const config = await getConfig() */
 
 export default getConfig;

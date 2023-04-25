@@ -9,8 +9,6 @@ export default function Camera() {
   const [data, setData] = useState(null);
   const router = useRouter();
 
-
-
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -21,11 +19,10 @@ export default function Camera() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    console.log("HANDELING BARCODE SCANNED")
+    console.log("HANDELING BARCODE SCANNED");
     setScanned(true);
     setData(data);
-    router.push("views/" + data)
-
+    router.push("views/" + data);
   };
 
   if (hasPermission === null) {
