@@ -1,5 +1,17 @@
 import { Link, Stack, useRouter } from "expo-router";
 import { Image, Text, View, Button } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+function LogoTitle() {
+    return (
+      <View>
+      <View style={{alignItems:"center"}}>
+        <Text>Snipe IT - Home </Text>
+      </View>
+      
+      </View>
+    );
+  }
 
 export default function Home() {
     const router = useRouter();
@@ -8,12 +20,15 @@ export default function Home() {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Stack.Screen
           options={{
-            title: "SnipeIT PBL - Home",
+            headerTitle: (props) => <LogoTitle {...props} />,
             headerStyle: { backgroundColor: "#f4511e" },
             headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },
+            headerRight: () => (
+                <Ionicons name="md-settings-outline" size={32} color="grey" onPress={() => router.push("views/settings/home")}/>
+            ),
           }}
         />
         <Text
