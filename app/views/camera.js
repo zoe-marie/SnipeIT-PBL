@@ -7,6 +7,8 @@ export default function Camera() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [data, setData] = useState(null);
+  const router = useRouter();
+
 
 
   useEffect(() => {
@@ -19,8 +21,10 @@ export default function Camera() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
+    console.log("HANDELING BARCODE SCANNED")
     setScanned(true);
     setData(data);
+    router.push("views/" + data)
 
   };
 
@@ -37,15 +41,6 @@ export default function Camera() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && (
-        <>
-        
-          {data && (
-            <Redirect href={`/views/${data}`} />
-
-          )}
-        </>
-      )}
     </View>
   );
 }
