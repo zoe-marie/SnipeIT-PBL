@@ -30,8 +30,6 @@ const snipeSettings = () => {
         placeholder="The URL of your Snipe IT Instance"
         onChangeText={newURL => setSnipeItApiUrl(newURL)}
       />
-      
-
     <Text>Snipe IT API Key</Text>
       <TextInput
         style={{height: 40}}
