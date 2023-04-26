@@ -19,7 +19,6 @@ export default function Camera() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    console.log("HANDELING BARCODE SCANNED");
     setScanned(true);
     setData(data);
     router.push("views/" + data);

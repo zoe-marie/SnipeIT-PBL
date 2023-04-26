@@ -1,7 +1,8 @@
 import { Text, View, Button, StyleSheet } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "expo-router";
-import { getAsset, getLocation, setLight } from "../api/snipeit";
+import { getAsset, getLocation } from "../api/snipeit";
+import { setLight } from "../api/wled";
 
 const Asset = () => {
   const router = useRouter();
@@ -14,24 +15,28 @@ const Asset = () => {
   };
 
   useEffect(() => {
-    getData();
+    (async () => await getData())();
     /* const { data, status } = useQuery(`asset-${id}`, (id) => getAsset, {
       staleTime: 60 * 10000000, // 10000 minute = around 1 week
       cacheTime: 60 * 10000000,
     }); */
   }, []);
   const getData = async () => {
-    console.log("IIIDDDDD");
-    console.log(id);
-    const assetData = await getAsset(id);
-    console.log("ASSET-DATA");
-    console.log(assetData);
-    setAsset(assetData);
-    const assetLocation = await getLocation(assetData.location.id);
-    console.log("ASSET-LOCATION");
-    console.log(assetLocation);
-    setLocation(assetLocation);
+    try {
+      const assetData = await getAsset(id)
+      setAsset(assetData);
+
+      try {
+        const assetLocation = getLocation(assetData.location.id);
+        setLocation(assetLocation);
+      } catch (error) {
+        console.error(error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const handleBlink = () => {
     if (location?.address === null) {
       return (

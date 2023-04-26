@@ -4,7 +4,6 @@ import * as SecureStore from "expo-secure-store";
 import getConfig from "../config";
 
 export async function saveSecureStore(key, value) {
-  console.log(key, value);
   await SecureStore.setItemAsync(key, value);
 }
 
@@ -15,49 +14,41 @@ export async function getSecureStore(key) {
 }
 
 export async function getAsset(id) {
-  console.log("getAsset");
-  const snipeItApiUrl = await getSecureStore("SnipeURL");
-  const snipeItApiToken = await getSecureStore("SnipeKEY");
-  const apiUrl = `${snipeItApiUrl}/api/v1/hardware/${id}`;
-  const apiKey = "Bearer " + snipeItApiToken;
+    const snipeItApiUrl = await getSecureStore("SnipeURL");
+    const snipeItApiToken = await getSecureStore("SnipeKEY");
+
+    const apiUrl = `${snipeItApiUrl}/api/v1/hardware/${id}`;
+    const apiKey = "Bearer " + snipeItApiToken;
 
   try {
     const res = await axios.get(apiUrl, {
       headers: { Authorization: apiKey },
     });
-    console.log(res.data)
     return res.data;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch asset");
+    console.error("in get asset: "+error);
   }
 }
 
 export async function getLocation(id) {
-  console.log("getLocation");
   const snipeItApiUrl = await getSecureStore("SnipeURL");
   const snipeItApiToken = await getSecureStore("SnipeKEY");
-  const apiUrl = `${snipeItApiUrl}/locations/${id}`;
+  const apiUrl = `${snipeItApiUrl}/api/v1/locations/${id}`;
   const apiKey = "Bearer " + snipeItApiToken;
 
   try {
     const res = await axios.get(apiUrl, {
       headers: { Authorization: apiKey },
     });
-    console.log("getLocation res" + res)
     return res.data;
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch location");
+    console.error("in get location: "+error);
   }
 }
 
 export async function setLight(ip, segment) {
-  console.log("setLight");
   const apiUrl = `http://${ip}/json`;
   blinkLight(apiUrl, segment);
-
-  console.log("LOCATION_DATA");
 }
 
 function blinkLight(apiUrl, segment) {
@@ -70,7 +61,6 @@ function blinkLight(apiUrl, segment) {
 }
 
 export function lightOn(apiUrl, segment) {
-  console.log("LIGHT_ON" + segment);
   const segmentNr = parseInt(segment);
 
   const json = JSON.stringify({
@@ -89,7 +79,6 @@ export function lightOn(apiUrl, segment) {
       },
     ],
   });
-  console.log(json);
   axios.post(apiUrl, json, {
     headers: {
       "Content-Type": "application/json",
@@ -98,7 +87,6 @@ export function lightOn(apiUrl, segment) {
 }
 
 export function lightOff(apiUrl, segment) {
-  console.log("LIGHT_OFF" + segment);
   const segmentNr = parseInt(segment);
   const json = JSON.stringify({
     on: true,
@@ -116,7 +104,6 @@ export function lightOff(apiUrl, segment) {
       },
     ],
   });
-  console.log(json);
 
   axios.post(apiUrl, json, {
     headers: {

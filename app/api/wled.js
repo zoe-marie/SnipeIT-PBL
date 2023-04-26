@@ -7,24 +7,27 @@ export async function saveSecureStore(key, value) {
   await SecureStore.setItemAsync(key, value);
 }
 
-export async function setLight(ip, segment) {
-  const apiUrl = `http://${ip}/json`;
-  blinkLight(apiUrl, segment);
+export async function getSecureStore(key) {  //get data from secure store
+    return await SecureStore.getItemAsync(key).then((response) => {
+      return response;
+    });
+  }
 
-  console.log("LOCATION_DATA");
+export async function setLight(ip, segment) {  //mage the apiurl and run blinkLight
+  const apiUrl = `http://${ip}/json`;
+  console.log("WLED API URL" + apiUrl)
+  blinkLight(apiUrl, segment);
 }
 
-function blinkLight(apiUrl, segment) {
+function blinkLight(apiUrl, segment) {  // turn on the segment for 5 sec then off
   lightOn(apiUrl, segment);
 
   setTimeout(function () {
-    //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
     lightOff(apiUrl, segment);
   }, 5000);
 }
 
-export function lightOn(apiUrl, segment) {
-  console.log("LIGHT_ON" + segment);
+export async function lightOn(apiUrl, segment) {  // turn the specified segment on
   const segmentNr = parseInt(segment);
 
   const json = JSON.stringify({
@@ -43,16 +46,20 @@ export function lightOn(apiUrl, segment) {
       },
     ],
   });
-  console.log(json);
-  axios.post(apiUrl, json, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+
+  try {
+    const res = await axios.post(apiUrl, json, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    return "success";
+  } catch (error) {
+    console.error("in get asset: "+error);
+  }
 }
 
-export function lightOff(apiUrl, segment) {
-  console.log("LIGHT_OFF" + segment);
+export async function lightOff(apiUrl, segment) {   // turn the specified segment off
   const segmentNr = parseInt(segment);
   const json = JSON.stringify({
     on: true,
@@ -70,11 +77,15 @@ export function lightOff(apiUrl, segment) {
       },
     ],
   });
-  console.log(json);
 
-  axios.post(apiUrl, json, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  try {
+    const res = await axios.post(apiUrl, json, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    return "success";
+  } catch (error) {
+    console.error("in get asset: "+error);
+  }
 }

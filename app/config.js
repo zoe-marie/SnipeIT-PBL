@@ -3,9 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Config from "react-native-config";
 
 async function getConfig(key) {
-    console.log(key)
-    console.log(Platform.OS)
-    console.log(process.env)
   if (Platform.OS !== "web") {
     const config = {
       snipeItApiToken: await AsyncStorage.getItem("@snipe_it_api_url"),
@@ -18,7 +15,6 @@ async function getConfig(key) {
       //Config.SNIPE_IT_API_URL,
       snipeItApiToken: Config.SNIPE_IT_API_TOKEN,
     };
-    console.log(config)
     return config["key"];
   }
 }

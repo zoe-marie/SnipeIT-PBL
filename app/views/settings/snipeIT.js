@@ -7,7 +7,6 @@ const snipeSettings = () => {
   const [snipeItKey, setSnipeItApiKey] = useState(null);
 
   useEffect(() => {
-    console.log("USE EFFECT Snipe IT Settings");
     async function loadSecureStore() {
       await getSecureStore("SnipeURL").then((SnipeUrl) =>
         setSnipeItApiUrl(SnipeUrl)
