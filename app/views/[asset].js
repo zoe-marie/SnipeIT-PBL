@@ -27,10 +27,10 @@ const Asset = () => {
       setAsset(assetData);
 
       try {
-        const assetLocation = getLocation(assetData.location.id);
+        const assetLocation = await getLocation(assetData.location.id);
         setLocation(assetLocation);
       } catch (error) {
-        console.error(error);
+        console.error("error in asset view"+error);
       }
     } catch (error) {
       console.error(error);

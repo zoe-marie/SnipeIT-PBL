@@ -15,7 +15,6 @@ export async function getSecureStore(key) {  //get data from secure store
 
 export async function setLight(ip, segment) {  //mage the apiurl and run blinkLight
   const apiUrl = `http://${ip}/json`;
-  console.log("WLED API URL" + apiUrl)
   blinkLight(apiUrl, segment);
 }
 
@@ -55,7 +54,7 @@ export async function lightOn(apiUrl, segment) {  // turn the specified segment 
       });
     return "success";
   } catch (error) {
-    console.error("in get asset: "+error);
+    console.error("in get lightOn: "+error);
   }
 }
 
@@ -86,6 +85,6 @@ export async function lightOff(apiUrl, segment) {   // turn the specified segmen
       });
     return "success";
   } catch (error) {
-    console.error("in get asset: "+error);
+    console.error("in get lightOff: "+error);
   }
 }
