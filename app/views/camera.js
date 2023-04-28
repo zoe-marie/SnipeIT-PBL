@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Redirect, useRouter, useFocusEffect } from "expo-router";
+import * as Haptics from 'expo-haptics';
 
 export default function Camera() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -19,6 +20,9 @@ export default function Camera() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
+    Haptics.notificationAsync(
+      Haptics.NotificationFeedbackType.Success
+    )
     setScanned(true);
     setData(data);
     router.push("views/" + data);
