@@ -1,4 +1,4 @@
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, Button, StyleSheet, ActivityIndicator } from "react-native";
 import React, { Component, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "expo-router";
 import { getAsset, getLocation } from "../api/snipeit";
@@ -66,6 +66,7 @@ const Asset = () => {
     );
   }
 
+  if (asset) {
   return (
     <View style={styles.container}>
       <Text style={styles.boldtext}>Asset ID</Text>
@@ -80,7 +81,14 @@ const Asset = () => {
         onPress={handleBlink}
       />
     </View>
-  );
+  )
+}
+return (
+  <View style={styles.container}>
+        <ActivityIndicator size="large" />
+
+  </View>
+);
 };
 
 const styles = StyleSheet.create({
